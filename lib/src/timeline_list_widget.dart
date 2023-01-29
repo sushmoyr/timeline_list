@@ -39,7 +39,6 @@ class TimelineList extends StatelessWidget {
   Widget build(BuildContext context) {
     final effectiveDecoration =
         decoration ?? TimelineListDecoration.of(context);
-    print("Build timeline");
     return ListView.builder(
       itemCount: items.length,
       itemBuilder: (ctx, idx) {
@@ -50,7 +49,7 @@ class TimelineList extends StatelessWidget {
               LeadingWidget(
                 icon: Padding(
                   padding: effectiveDecoration.iconMargin ??
-                      const EdgeInsets.symmetric(horizontal: 8),
+                      const EdgeInsets.symmetric(vertical: 8),
                   child: item.icon,
                 ),
                 decoration: effectiveDecoration,
