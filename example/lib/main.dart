@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           builder: (index) {
             return TimelineListItem(
-              icon: ProgressStatus(
+              icon: const ProgressStatus(
                 size: Size.fromRadius(24),
                 progress: 0.1,
                 backgroundColor: Colors.white,
@@ -130,6 +130,7 @@ class ProgressStatus extends StatefulWidget {
     this.inactiveColor,
     this.duration,
     this.curve,
+    this.child,
   }) : super(key: key);
 
   final Size size;
@@ -139,6 +140,7 @@ class ProgressStatus extends StatefulWidget {
   final Color? activeColor;
   final Duration? duration;
   final Curve? curve;
+  final Widget? child;
 
   @override
   State<ProgressStatus> createState() => _ProgressStatusState();
@@ -190,7 +192,7 @@ class _ProgressStatusState extends State<ProgressStatus>
       animation: animation,
       builder: (BuildContext context, Widget? child) {
         double value = animation.value;
-        print(value);
+        // print(value);
         return SizedBox.fromSize(
           size: widget.size,
           child: CustomPaint(
@@ -202,10 +204,11 @@ class _ProgressStatusState extends State<ProgressStatus>
               strokeWidth: 4.0,
             ),
             child: Center(
-              child: Text(
-                "${(value * 100).toStringAsFixed(0)}%",
-                style: TextStyle(fontSize: 9.0),
-              ),
+              child: widget.child ??
+                  Text(
+                    "${(value * 100).toStringAsFixed(0)}%",
+                    style: const TextStyle(fontSize: 9.0),
+                  ),
             ),
           ),
         );
@@ -231,8 +234,8 @@ class ProgressStatusPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    double width = size.width;
-    double height = size.height;
+    // double width = size.width;
+    // double height = size.height;
 
     Paint backgroundPaint = Paint()
       ..color = backgroundColor
@@ -252,7 +255,7 @@ class ProgressStatusPainter extends CustomPainter {
     double radius = size.width / 2;
 
     // Draw the background
-    // canvas.drawCircle(center, radius, backgroundPaint);
+    canvas.drawCircle(center, radius, backgroundPaint);
 
     // Draw the inactive line
     canvas.drawCircle(center, radius - (strokeWidth / 2), inactiveColorPaint);
