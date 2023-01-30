@@ -48,7 +48,7 @@ class RenderLeadingWidget extends RenderBox
   void paint(PaintingContext context, Offset offset) {
     final canvas = context.canvas;
     canvas.save();
-    canvas.translate(0, offset.dy);
+    canvas.translate(offset.dx, offset.dy);
     Paint paint = Paint()
       ..color = decoration.barColor!
       ..style = PaintingStyle.stroke
