@@ -96,19 +96,76 @@ class RenderLeadingWidget extends RenderBox
         p2 = Offset(dx, ((height - childHeight) / 2) - stroke);
         p3 = Offset(dx, ((height + childHeight) / 2) + stroke);
         p4 = Offset(dx, height);
-        canvas.drawLine(p1, p2, paint);
-        canvas.drawLine(p3, p4, paint);
+        Path path1 = Path()
+          ..moveTo(p1.dx, p1.dy)
+          ..lineTo(p2.dx, p2.dy);
+        Path path2 = Path()
+          ..moveTo(p3.dx, p3.dy)
+          ..lineTo(p4.dx, p4.dy);
+        drawPath(path1, canvas, paint);
+        drawPath(path2, canvas, paint);
         return;
       case TimelineListIconAlign.top:
-        p1 = Offset(dx, childHeight);
-        p2 = Offset(dx, height);
-        canvas.drawLine(p1, p2, paint);
+        Path path = Path()
+          ..moveTo(dx, childHeight)
+          ..lineTo(dx, height);
+        drawPath(path, canvas, paint);
+        // p1 = Offset(dx, childHeight);
+        // p2 = Offset(dx, height);
+        // canvas.drawLine(p1, p2, paint);
         return;
       case TimelineListIconAlign.bottom:
-        p1 = Offset(dx, 0);
-        p2 = Offset(dx, height - childHeight);
-        canvas.drawLine(p1, p2, paint);
+        Path path = Path()
+          ..moveTo(dx, 0)
+          ..lineTo(dx, height - childHeight);
+        drawPath(path, canvas, paint);
+        // p1 = Offset(dx, 0);
+        // p2 = Offset(dx, height - childHeight);
+        // canvas.drawLine(p1, p2, paint);
         return;
+    }
+  }
+
+  void drawPath(Path path, Canvas canvas, Paint paint) {
+    // print(decoration.barStyle);
+    switch (decoration.barStyle) {
+      case BarStyle.solid:
+        canvas.drawPath(path, paint);
+        break;
+      case BarStyle.dotted:
+        List<double> dashArray = [decoration.barWidth, decoration.barWidth * 2];
+        PathMetrics pathMetrics = path.computeMetrics();
+        double distance = 0;
+        for (PathMetric pathMetric in pathMetrics) {
+          while (distance < pathMetric.length) {
+            Path dashPath = pathMetric.extractPath(
+              distance,
+              distance + dashArray.first,
+            );
+            canvas.drawPath(
+              dashPath,
+              paint,
+            );
+            distance +=
+                dashArray.fold(0, (previous, current) => previous + current);
+          }
+          distance -= pathMetric.length;
+        }
+        // print(pathMetrics.first);
+        // for (PathMetric pathMetric in pathMetrics) {
+        //   double distance = 0;
+        //   while (distance < pathMetric.length) {
+        //     print("Current distance: $distance");
+        //     Path path = pathMetric.extractPath(distance, dashArray.first);
+        //     canvas.save();
+        //     canvas.drawPath(path, paint);
+        //     canvas.restore();
+        //     distance += dashArray.fold(0, (a, b) => a + b);
+        //     print('New distance: $distance');
+        //   }
+        //   // print(pathMetric.length);
+        // }
+        break;
     }
   }
 }

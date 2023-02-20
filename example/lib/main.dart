@@ -63,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
           decoration: TimelineListDecoration(
             barColor: const Color(0xFFDDE4F2),
             barWidth: 4.0,
+            iconAlign: TimelineListIconAlign.top,
           ),
           builder: (index) {
             return TimelineListItem(
@@ -73,35 +74,32 @@ class _MyHomePageState extends State<MyHomePage> {
                 activeColor: Color(0xFF52B69A),
                 inactiveColor: Color(0xFFD3ECE5),
               ),
-              body: AspectRatio(
-                aspectRatio: 306 / 158,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(
-                          child: Image.network(
-                            'https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2020/02/07164833/Physics-Project-for-Class-12-800x500.jpg',
-                            fit: BoxFit.cover,
-                          ),
+              body: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: Image.network(
+                          'https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2020/02/07164833/Physics-Project-for-Class-12-800x500.jpg',
+                          fit: BoxFit.cover,
                         ),
-                        ListTile(
-                          title: Text(
-                            "প্রথম অধ্যায়",
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          subtitle: Text(
-                            "স্থির তড়িৎ",
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          "প্রথম অধ্যায়",
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
-                      ],
-                    ),
+                        subtitle: Text(
+                          "স্থির তড়িৎ",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

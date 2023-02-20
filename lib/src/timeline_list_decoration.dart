@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 
 enum TimelineListIconAlign { center, top, bottom }
 
+enum BarStyle { solid, dotted }
+
 class TimelineListDecoration {
   final Color? barColor;
   final double barWidth;
   final EdgeInsets? contentPadding;
   final EdgeInsets? iconMargin;
   final TimelineListIconAlign? iconAlign;
+  final BarStyle barStyle;
 
 //<editor-fold desc="Data Methods">
   const TimelineListDecoration({
@@ -16,6 +19,7 @@ class TimelineListDecoration {
     this.contentPadding,
     this.iconMargin,
     this.iconAlign,
+    this.barStyle = BarStyle.dotted,
   });
 
   factory TimelineListDecoration.of(BuildContext context) {
@@ -43,6 +47,7 @@ class TimelineListDecoration {
           barWidth == other.barWidth &&
           contentPadding == other.contentPadding &&
           iconMargin == other.iconMargin &&
+          barStyle == other.barStyle &&
           iconAlign == other.iconAlign);
 
   @override
@@ -51,6 +56,7 @@ class TimelineListDecoration {
       barWidth.hashCode ^
       contentPadding.hashCode ^
       iconMargin.hashCode ^
+      barStyle.hashCode ^
       iconAlign.hashCode;
 
   @override
@@ -64,6 +70,7 @@ class TimelineListDecoration {
     EdgeInsets? contentPadding,
     EdgeInsets? iconMargin,
     TimelineListIconAlign? iconAlign,
+    BarStyle? barStyle,
   }) {
     return TimelineListDecoration(
       barColor: barColor ?? this.barColor,
@@ -71,6 +78,7 @@ class TimelineListDecoration {
       contentPadding: contentPadding ?? this.contentPadding,
       iconMargin: iconMargin ?? this.iconMargin,
       iconAlign: iconAlign ?? this.iconAlign,
+      barStyle: barStyle ?? this.barStyle,
     );
   }
 
