@@ -43,6 +43,7 @@ class TimelineList extends StatelessWidget {
         decoration ?? TimelineListDecoration.of(context);
     return ListView.builder(
       itemCount: items.length,
+      padding: EdgeInsets.zero,
       itemBuilder: (ctx, idx) {
         final item = items[idx];
         return IntrinsicHeight(
